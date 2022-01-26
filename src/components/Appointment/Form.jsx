@@ -3,13 +3,14 @@ import Button from 'components/Button';
 import InterviewerList from 'components/InterviewerList';
 
 export default function Form(props) {
-  const { interview, interviewers, onSave, onCancel } = props;
+  const { name: studentName, interviewer: interviewerId, interviewers, onSave, onCancel } = props;
 
-  const [ student, setStudent ] = useState((interview && interview.student) || '');
-  const [ interviewer, setInterviewer ] = useState((interview && interview.interviewer) || null);
+  const [ name, setname ] = useState(studentName || '');
+  const [ interviewer, setInterviewer ] = useState(interviewerId || null);
+  const [ error, setError ] = useState('');
 
   function studentChangeHandler(e) {
-    setStudent(e.target.value);
+    setname(e.target.value);
   }
 
   function interviewerChangeHandler(id) {
@@ -17,7 +18,7 @@ export default function Form(props) {
   }
 
   function reset() {
-    setStudent('');
+    setname('');
     setInterviewer(null);
   }
 
@@ -26,27 +27,38 @@ export default function Form(props) {
     onCancel();
   }
 
+  function validate() {
+    if (name === '') {
+      setError('Student name cannot be blank');
+      return;
+    }
+
+    onSave(name, interviewer);
+  }
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
           <input
+            data-testid="student-name-input"
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder={student ? student : 'Enter Student Name'}
-            value={student}
+            placeholder={name ? name : 'Enter Student Name'}
+            value={name}
             onChange={studentChangeHandler}
           />
+          <section className="appointment__validation">{error}</section>
+          <InterviewerList interviewers={interviewers} value={interviewer} onChange={interviewerChangeHandler} />
         </form>
-        <InterviewerList interviewers={interviewers} value={interviewer} onChange={interviewerChangeHandler} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={() => onSave(student, interviewer)}>
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
