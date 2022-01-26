@@ -5,20 +5,13 @@ import InterviewerList from 'components/InterviewerList';
 export default function Form(props) {
   const { name: studentName, interviewer: interviewerId, interviewers, onSave, onCancel } = props;
 
-  const [ name, setname ] = useState(studentName || '');
+  const [ name, setName ] = useState(studentName || '');
   const [ interviewer, setInterviewer ] = useState(interviewerId || null);
   const [ error, setError ] = useState('');
 
-  function studentChangeHandler(e) {
-    setname(e.target.value);
-  }
-
-  function interviewerChangeHandler(id) {
-    setInterviewer(id);
-  }
-
   function reset() {
-    setname('');
+    setName('');
+    setError('');
     setInterviewer(null);
   }
 
@@ -33,6 +26,7 @@ export default function Form(props) {
       return;
     }
 
+    setError('');
     onSave(name, interviewer);
   }
 
@@ -45,12 +39,12 @@ export default function Form(props) {
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder={name ? name : 'Enter Student Name'}
+            placeholder={'Enter Student Name'}
             value={name}
-            onChange={studentChangeHandler}
+            onChange={(e) => setName(e.target.value)}
           />
           <section className="appointment__validation">{error}</section>
-          <InterviewerList interviewers={interviewers} value={interviewer} onChange={interviewerChangeHandler} />
+          <InterviewerList interviewers={interviewers} value={interviewer} onChange={setInterviewer} />
         </form>
       </section>
       <section className="appointment__card-right">
