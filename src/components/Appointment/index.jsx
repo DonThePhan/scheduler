@@ -77,7 +77,9 @@ export default function Appointment(props) {
         </Confirm>
       )}
       {mode === ERROR_DELETE && <Error message="Could not cancel appointment" onClose={() => transition(SHOW, true)} />}
-      {mode === ERROR_SAVE && <Error message="Could not book appointment" onClose={() => transition(SHOW, true)} />}
+      {mode === ERROR_SAVE && (
+        <Error message="Could not book appointment" onClose={() => transition(interview ? SHOW : EMPTY, true)} />
+      )}
     </article>
   );
 }
