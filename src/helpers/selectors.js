@@ -1,6 +1,5 @@
 export function getAppointmentsForDay(state, day) {
   if (!state.days) {
-    // console.log('no data');
     return [];
   }
 
@@ -28,13 +27,11 @@ export function getInterview(state, interview) {
 
 export function getInterviewersForDay(state, day) {
   if (!state.days) {
-    // console.log('no data');
     return [];
   }
 
   const foundDay = state.days.find((stateDay) => stateDay.name === day);
   if (!foundDay) {
-    // console.log('no Day found');
     return [];
   }
 
@@ -42,6 +39,5 @@ export function getInterviewersForDay(state, day) {
   for (let interviewer of foundDay.interviewers) {
     dayInterviewers.push(state.interviewers[interviewer]);
   }
-  // console.log('interviewers for the day: ', dayInterviewers);
   return dayInterviewers;
 }

@@ -16,7 +16,6 @@ export default function useVisualMode(initialMode) {
       });
     }
     setMode(newMode);
-    // console.log('transitioned to => ', newMode);
   }
 
   function back() {
