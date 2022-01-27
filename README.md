@@ -4,6 +4,8 @@
 
 Install dependencies with `npm install`.
 
+Test Server can be found here: `https://github.com/DonThePhan/scheduler-api`
+
 ## Running Webpack Development Server
 
 ```sh
@@ -16,8 +18,4 @@ npm start
 npm test
 ```
 
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+## Video Demo
